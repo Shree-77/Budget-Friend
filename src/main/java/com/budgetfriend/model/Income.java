@@ -1,5 +1,6 @@
 package com.budgetfriend.model;
 
+import jakarta.validation.constraints.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -10,9 +11,15 @@ import java.time.LocalDate;
 public class Income {
     @Id
     private String id;
+    @NotNull
+   @Positive(message = "Amount must be positive")
     private BigDecimal amount;
+    @Size(max = 150, message = "Source must be less than 150 characters")
+    @NotBlank(message = "Source is required")
     private String source;
+    @NotNull
     private LocalDate receivedDate;
+    @Size(max = 250, message = "Description must be less than 250 characters")
     private String description;
 
     public String getId() {

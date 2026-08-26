@@ -2,6 +2,7 @@ package com.budgetfriend.controller;
 
 import com.budgetfriend.model.Income;
 import com.budgetfriend.service.IncomeService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,12 +15,12 @@ public class IncomeController {
     }
 
     @PostMapping
-    public Income addIncome(@RequestBody Income income){
+    public Income addIncome(@Valid @RequestBody Income income){
        return incomeService.createIncome(income);
     }
 
     @PutMapping("/{id}")
-    public void updateIncome(@PathVariable String id,@RequestBody Income updatedIncome) {
+    public void updateIncome(@PathVariable String id, @Valid @RequestBody Income updatedIncome) {
         incomeService.updateIncome(id, updatedIncome);
     }
     @GetMapping("/{id}")

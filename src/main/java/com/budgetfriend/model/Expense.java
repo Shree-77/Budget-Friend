@@ -2,6 +2,8 @@ package com.budgetfriend.model;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -12,10 +14,12 @@ import java.util.Date;
 public class Expense {
     @Id
     private String id;
-    @NotNull @NotBlank
+    @NotNull @Positive
     private BigDecimal amount;
     @NotBlank
+    @Size(max = 50, message = "Category must be less than 50 characters")
     private String category;
+    @Size(max = 250, message = "Description must be less than 250 characters")
     private String description;
     @NotNull
     private Date expenseDate;

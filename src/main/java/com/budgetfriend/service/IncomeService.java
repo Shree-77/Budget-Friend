@@ -1,7 +1,9 @@
 package com.budgetfriend.service;
 
+import com.budgetfriend.exception.custom.ResourceNotFoundException;
 import com.budgetfriend.model.Income;
 import com.budgetfriend.repository.IncomeRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,7 +22,7 @@ public class IncomeService{
         return incomeRepository.findAll();
     }
     public Income getIncomeById(String id) {
-        return incomeRepository.findById(id).orElse(null);
+        return incomeRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Income not found", "INCOME_NOT_FOUND", HttpStatus.NOT_FOUND));
     }
 
     public Income updateIncome(String id, Income updatedIncome) {
