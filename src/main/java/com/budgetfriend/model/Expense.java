@@ -7,8 +7,10 @@ import jakarta.validation.constraints.Size;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
+
 
 @Document(collection = "expenses")
 public class Expense {
@@ -22,7 +24,8 @@ public class Expense {
     @Size(max = 250, message = "Description must be less than 250 characters")
     private String description;
     @NotNull
-    private Date expenseDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate expenseDate;
 
     public String getId() {
         return id;
@@ -56,11 +59,11 @@ public class Expense {
         this.description = description;
     }
 
-    public Date getExpenseDate() {
+    public LocalDate getExpenseDate() {
         return expenseDate;
     }
 
-    public void setExpenseDate(Date expenseDate) {
+    public void setExpenseDate(LocalDate expenseDate) {
         this.expenseDate = expenseDate;
     }
 }

@@ -1,14 +1,9 @@
-package com.budgetfriend.model;
-
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+package com.budgetfriend.dto.response;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-@Document(collection = "incomes")
-public class Income {
-    @Id
+public class IncomeResponse {
     private String id;
     private BigDecimal amount;
     private String source;
@@ -39,7 +34,6 @@ public class Income {
         this.source = source;
     }
 
-
     public LocalDate getReceivedDate() {
         return receivedDate;
     }
@@ -56,4 +50,3 @@ public class Income {
         this.description = description;
     }
 }
-

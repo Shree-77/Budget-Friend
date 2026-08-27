@@ -1,10 +1,10 @@
 package com.budgetfriend.controller;
 
-import com.budgetfriend.exception.custom.ResourceNotFoundException;
-import com.budgetfriend.model.Expense;
+import com.budgetfriend.dto.request.ExpenseRequest;
+import com.budgetfriend.dto.request.ExpenseUpdateRequest;
+import com.budgetfriend.dto.response.ExpenseResponse;
 import com.budgetfriend.service.ExpenseService;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,16 +19,24 @@ public class ExpenseController {
     }
 
     @PostMapping
-    public Expense addExpense(@Valid @RequestBody Expense expense){
-       return expenseService.createExpense(expense);
+    public ExpenseResponse addExpense(@Valid @RequestBody ExpenseRequest expenseRequest){
+       return expenseService.createExpense(expenseRequest);
     }
     @GetMapping
-    public List<Expense> getExpenses() {
+    public List<ExpenseResponse> getExpenses() {
         return expenseService.getExpenses();
     }
     @GetMapping("/{id}")
-    public Expense getExpenseById(@PathVariable String id) {
+    public ExpenseResponse getExpenseById(@PathVariable String id) {
         return expenseService.getExpenseById(id);
+    }
+    @PutMapping("/{id}")
+    public ExpenseResponse updateExpense(@PathVariable String id, @Valid @RequestBody ExpenseUpdateRequest expenseUpdateRequest) {
+        return expenseService.updateExpense(id, expenseUpdateRequest);
+    }
+    @DeleteMapping("/{id}")
+    public void deleteExpense(@PathVariable String id) {
+        expenseService.deleteExpense(id);
     }
 
 }
