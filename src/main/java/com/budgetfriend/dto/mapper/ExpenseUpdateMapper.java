@@ -11,7 +11,7 @@ public class ExpenseUpdateMapper {
             existing.setAmount(request.getAmount());
         }
         if (request.getCategory() != null) {
-            existing.setCategory(request.getCategory());
+            existing.setBudgetCategory(request.getCategory());
         }
         if (request.getDescription() != null) {
             existing.setDescription(request.getDescription());

@@ -5,9 +5,11 @@ import com.budgetfriend.dto.mapper.BudgetUpdateMapper;
 import com.budgetfriend.dto.request.BudgetRequest;
 import com.budgetfriend.dto.request.BudgetUpdateRequest;
 import com.budgetfriend.dto.response.BudgetResponse;
+import com.budgetfriend.exception.custom.InvalidInputException;
 import com.budgetfriend.exception.custom.ResourceNotFoundException;
 import com.budgetfriend.model.Budget;
 import com.budgetfriend.repository.BudgetRepository;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -28,9 +30,17 @@ public class BudgetService {
     }
 
     public BudgetResponse createBudget(BudgetRequest request) {
-        Budget budget = budgetMapper.toEntity(request);
-        Budget saved = budgetRepository.save(budget);
-        return budgetMapper.toResponse(saved);
+        try {
+            Budget budget = budgetMapper.toEntity(request);
+            Budget saved = budgetRepository.save(budget);
+            return budgetMapper.toResponse(saved);
+        } catch (DuplicateKeyException e) {
+            throw new InvalidInputException(
+                    "A budget with category '" + request.getCategory() + "' already exists for this month and year",
+                    "DUPLICATE_BUDGET_CATEGORY",
+                    HttpStatus.CONFLICT
+            );
+        }
     }
 
     public List<BudgetResponse> getBudgets() {
@@ -58,9 +68,17 @@ public class BudgetService {
                         HttpStatus.NOT_FOUND
                 ));
 
-        Budget updated = budgetUpdateMapper.updateEntity(existing, request);
-        Budget saved = budgetRepository.save(updated);
-        return budgetMapper.toResponse(saved);
+        try {
+            Budget updated = budgetUpdateMapper.updateEntity(existing, request);
+            Budget saved = budgetRepository.save(updated);
+            return budgetMapper.toResponse(saved);
+        } catch (DuplicateKeyException e) {
+            throw new InvalidInputException(
+                    "A budget with category '" + request.getCategory() + "' already exists for this month and year",
+                    "DUPLICATE_BUDGET_CATEGORY",
+                    HttpStatus.CONFLICT
+            );
+        }
     }
 
     public void deleteBudget(String id) {

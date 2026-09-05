@@ -7,7 +7,6 @@ import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
 public class BudgetRequest {
 
@@ -19,13 +18,9 @@ public class BudgetRequest {
     @Positive(message = "Amount must be positive")
     private BigDecimal amount;
 
+    @Size(max = 250, message = "Description must be less than 250 characters")
+    private String description;
 
-
-    @NotNull(message = "Period start is required")
-    private LocalDate periodStart;
-
-    @NotNull(message = "Period end is required")
-    private LocalDate periodEnd;
 
 
     public String getCategory() {
@@ -44,21 +39,13 @@ public class BudgetRequest {
         this.amount = amount;
     }
 
-
-    public LocalDate getPeriodStart() {
-        return periodStart;
+    public String getDescription() {
+        return description;
     }
 
-    public void setPeriodStart(LocalDate periodStart) {
-        this.periodStart = periodStart;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public LocalDate getPeriodEnd() {
-        return periodEnd;
-    }
-
-    public void setPeriodEnd(LocalDate periodEnd) {
-        this.periodEnd = periodEnd;
-    }
 
 }

@@ -20,12 +20,15 @@ public class Expense {
     private BigDecimal amount;
     @NotBlank
     @Size(max = 50, message = "Category must be less than 50 characters")
-    private String category;
+    private String budgetCategory;
     @Size(max = 250, message = "Description must be less than 250 characters")
     private String description;
     @NotNull
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate expenseDate;
+
+    private int month;
+    private int year;
 
     public String getId() {
         return id;
@@ -43,12 +46,12 @@ public class Expense {
         this.amount = amount;
     }
 
-    public String getCategory() {
-        return category;
+    public String getBudgetCategory() {
+        return budgetCategory;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setBudgetCategory(String budgetCategory) {
+        this.budgetCategory = budgetCategory;
     }
 
     public String getDescription() {
@@ -65,5 +68,21 @@ public class Expense {
 
     public void setExpenseDate(LocalDate expenseDate) {
         this.expenseDate = expenseDate;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
     }
 }

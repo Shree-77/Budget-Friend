@@ -1,15 +1,11 @@
 package com.budgetfriend.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
-import org.springframework.data.annotation.Id;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Date;
 
 public class ExpenseUpdateRequest {
     @Positive
@@ -20,6 +16,7 @@ public class ExpenseUpdateRequest {
     private String description;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate expenseDate;
+
 
     public LocalDate getExpenseDate() {
         return expenseDate;

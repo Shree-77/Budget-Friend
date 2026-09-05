@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/income")
+@RequestMapping("/incomes")
 public class IncomeController {
     private final IncomeService incomeService;
 

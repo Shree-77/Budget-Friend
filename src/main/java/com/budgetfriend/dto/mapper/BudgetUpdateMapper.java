@@ -4,8 +4,6 @@ import com.budgetfriend.dto.request.BudgetUpdateRequest;
 import com.budgetfriend.model.Budget;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
-
 @Component
 public class BudgetUpdateMapper {
 
@@ -16,12 +14,8 @@ public class BudgetUpdateMapper {
         if (request.getAmount() != null) {
             existing.setAmount(request.getAmount());
         }
-
-        if (request.getPeriodStart() != null) {
-            existing.setPeriodStart(request.getPeriodStart());
-        }
-        if (request.getPeriodEnd() != null) {
-            existing.setPeriodEnd(request.getPeriodEnd());
+        if (request.getDescription() != null) {
+            existing.setDescription(request.getDescription());
         }
 
         return existing;

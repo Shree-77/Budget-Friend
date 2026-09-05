@@ -15,6 +15,11 @@ public class IncomeRequest {
     @Size(max = 150, message = "Source must be less than 150 characters")
     @NotBlank(message = "Source is required")
     private String source;
+    @NotNull
+    private LocalDate receivedDate;
+    @Size(max = 250, message = "Description must be less than 250 characters")
+    private String description;
+
 
     public @NotNull @Positive(message = "Amount must be positive") BigDecimal getAmount() {
         return amount;
@@ -47,11 +52,5 @@ public class IncomeRequest {
     public void setDescription(@Size(max = 250, message = "Description must be less than 250 characters") String description) {
         this.description = description;
     }
-
-    @NotNull
-    private LocalDate receivedDate;
-    @Size(max = 250, message = "Description must be less than 250 characters")
-    private String description;
-
 
 }

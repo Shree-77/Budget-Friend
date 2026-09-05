@@ -1,5 +1,6 @@
 package com.budgetfriend.exception;
 
+import com.budgetfriend.exception.custom.InvalidInputException;
 import com.budgetfriend.exception.custom.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -38,13 +39,23 @@ public class GlobalExceptionHandler {
         );
         return new ResponseEntity<>(apiErrorResponse, ex.getStatus());
     }
+    @ExceptionHandler(InvalidInputException.class)
+    public ResponseEntity<ApiErrorResponse>handleInvalidInputException(InvalidInputException ex , HttpServletRequest request){
+        ApiErrorResponse apiErrorResponse = new ApiErrorResponse(
+                HttpStatus.BAD_REQUEST,
+                ex.getErrorCode(),
+                "Invalid input "+ex.getMessage(),
+                request.getRequestURI()
+        );
+        return new ResponseEntity<>(apiErrorResponse,ex.getStatus());
+    }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiErrorResponse> handleGenericException(Exception ex, HttpServletRequest request) {
         ApiErrorResponse apiErrorResponse = new ApiErrorResponse(
                 HttpStatus.INTERNAL_SERVER_ERROR,
                 "INTERNAL_SERVER_ERROR",
-                "An unexpected error occurred. Please try again later.",
+                ex.getMessage(),
                 request.getRequestURI()
         );
         return new ResponseEntity<>(apiErrorResponse, HttpStatus.INTERNAL_SERVER_ERROR);

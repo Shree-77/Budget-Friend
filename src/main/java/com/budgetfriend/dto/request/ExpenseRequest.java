@@ -8,7 +8,6 @@ import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Date;
 
 public class ExpenseRequest {
 
@@ -57,4 +56,5 @@ public class ExpenseRequest {
     public void setExpenseDate(@NotNull LocalDate expenseDate) {
         this.expenseDate = expenseDate;
     }
+
 }

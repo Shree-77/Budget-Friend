@@ -5,7 +5,7 @@ import com.budgetfriend.dto.response.BudgetResponse;
 import com.budgetfriend.model.Budget;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Component
 public class BudgetMapper {
@@ -14,8 +14,9 @@ public class BudgetMapper {
         Budget budget = new Budget();
         budget.setCategory(request.getCategory());
         budget.setAmount(request.getAmount());
-        budget.setPeriodStart(request.getPeriodStart());
-        budget.setPeriodEnd(request.getPeriodEnd());
+        budget.setDescription(request.getDescription());
+        budget.setMonth(LocalDate.now().getMonthValue());
+        budget.setYear(LocalDate.now().getYear());
         return budget;
     }
 
@@ -24,8 +25,9 @@ public class BudgetMapper {
         response.setId(budget.getId());
         response.setCategory(budget.getCategory());
         response.setAmount(budget.getAmount());
-        response.setPeriodStart(budget.getPeriodStart());
-        response.setPeriodEnd(budget.getPeriodEnd());
+        response.setDescription(budget.getDescription());
+        response.setMonth(budget.getMonth());
+        response.setYear(budget.getYear());
         return response;
     }
 }

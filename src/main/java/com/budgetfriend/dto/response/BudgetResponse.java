@@ -2,7 +2,6 @@ package com.budgetfriend.dto.response;
 
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
 
 public class BudgetResponse {
@@ -10,10 +9,9 @@ public class BudgetResponse {
     private String id;
     private String category;
     private BigDecimal amount;
-
-    private LocalDate periodStart;
-    private LocalDate periodEnd;
-
+    private String description;
+    private int month;
+    private int year;
 
     public String getId() {
         return id;
@@ -39,20 +37,28 @@ public class BudgetResponse {
         this.amount = amount;
     }
 
-    public LocalDate getPeriodStart() {
-        return periodStart;
+    public String getDescription() {
+        return description;
     }
 
-    public void setPeriodStart(LocalDate periodStart) {
-        this.periodStart = periodStart;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public LocalDate getPeriodEnd() {
-        return periodEnd;
+    public int getMonth() {
+        return month;
     }
 
-    public void setPeriodEnd(LocalDate periodEnd) {
-        this.periodEnd = periodEnd;
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
     }
 
 }
