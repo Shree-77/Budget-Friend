@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.math.BigDecimal;
 
 @Document(collection = "budgets")
-@CompoundIndex(name = "category_month_year_unique", def = "{'category': 1, 'month': 1, 'year': 1}", unique = true)
+@CompoundIndex(name = "category_month_year_unique", def = "{'category': 1, 'month': 1, 'year': 1}", unique = true, collation = "{ 'locale': 'en', 'strength': 2 }")
 public class Budget {
 
     @Id

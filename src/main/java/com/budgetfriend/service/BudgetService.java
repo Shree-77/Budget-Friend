@@ -22,23 +22,42 @@ public class BudgetService {
     private final BudgetRepository budgetRepository;
     private final BudgetMapper budgetMapper;
     private final BudgetUpdateMapper budgetUpdateMapper;
+    private final FinancialService financialService;
 
-    public BudgetService(BudgetRepository budgetRepository, BudgetMapper budgetMapper, BudgetUpdateMapper budgetUpdateMapper) {
+    public BudgetService(BudgetRepository budgetRepository, BudgetMapper budgetMapper, BudgetUpdateMapper budgetUpdateMapper, FinancialService financialService) {
         this.budgetRepository = budgetRepository;
         this.budgetMapper = budgetMapper;
         this.budgetUpdateMapper = budgetUpdateMapper;
+        this.financialService = financialService;
     }
 
     public BudgetResponse createBudget(BudgetRequest request) {
-        try {
-            Budget budget = budgetMapper.toEntity(request);
-            Budget saved = budgetRepository.save(budget);
-            return budgetMapper.toResponse(saved);
-        } catch (DuplicateKeyException e) {
+        Budget budget = budgetMapper.toEntity(request);
+
+        if(financialService.isCategoryExists(budget)) {
             throw new InvalidInputException(
                     "A budget with category '" + request.getCategory() + "' already exists for this month and year",
                     "DUPLICATE_BUDGET_CATEGORY",
                     HttpStatus.CONFLICT
+            );
+        }
+
+        if(financialService.canAddBudget(budget)) {
+            try {
+                Budget saved = budgetRepository.save(budget);
+                return budgetMapper.toResponse(saved);
+            } catch (DuplicateKeyException e) {
+                throw new InvalidInputException(
+                        "A budget with category '" + request.getCategory() + "' already exists for this month and year",
+                        "DUPLICATE_BUDGET_CATEGORY",
+                        HttpStatus.CONFLICT
+                );
+            }
+        }else{
+            throw  new InvalidInputException(
+                    "Insufficient Income to allocate a Budget for "+budget.getCategory(),
+                    "INSUFFICIENT_AMOUNT",
+                    HttpStatus.BAD_REQUEST
             );
         }
     }
@@ -68,8 +87,23 @@ public class BudgetService {
                         HttpStatus.NOT_FOUND
                 ));
 
+        Budget updated = budgetUpdateMapper.updateEntity(existing, request);
+
+        // Check for duplicate category (case-insensitive) excluding the current budget
+        List<Budget> budgetsForMonthYear = budgetRepository.findByMonthAndYear(updated.getMonth(), updated.getYear());
+        boolean isDuplicate = budgetsForMonthYear.stream()
+                .filter(b -> !b.getId().equals(id)) // Exclude current budget
+                .anyMatch(b -> b.getCategory().equalsIgnoreCase(updated.getCategory()));
+
+        if(isDuplicate) {
+            throw new InvalidInputException(
+                    "A budget with category '" + request.getCategory() + "' already exists for this month and year",
+                    "DUPLICATE_BUDGET_CATEGORY",
+                    HttpStatus.CONFLICT
+            );
+        }
+
         try {
-            Budget updated = budgetUpdateMapper.updateEntity(existing, request);
             Budget saved = budgetRepository.save(updated);
             return budgetMapper.toResponse(saved);
         } catch (DuplicateKeyException e) {
