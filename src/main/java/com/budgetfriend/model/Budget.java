@@ -1,9 +1,12 @@
 package com.budgetfriend.model;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.mapping.Document;
-
 import java.math.BigDecimal;
 
 @Document(collection = "budgets")
@@ -13,13 +16,21 @@ public class Budget {
     @Id
     private String id;
 
+    @NotBlank
+    @Size(max = 50, message = "Category must be less than 50 characters")
     private String category;
 
+    @NotNull
+    @Positive
     private BigDecimal amount;
 
+    @Size(max = 250, message = "Description must be less than 250 characters")
     private String description;
 
+    @NotNull
     private int month;
+
+    @NotNull
     private int year;
 
     public String getId() {
