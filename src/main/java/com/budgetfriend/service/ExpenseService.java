@@ -43,6 +43,14 @@ public class ExpenseService {
             );
         }
 
+        if(financialService.isExpenseExceeded(expense)){
+            throw new InvalidInputException(
+                    "Expense Date'" + expenseRequest.getExpenseDate() + "'should be with in the Current Month",
+                    "DATE_OUT_OF_RANGE",
+                    HttpStatus.BAD_REQUEST
+            );
+        }
+
         Budget budget = financialService.getBudgetByExpense(expense);
         BigDecimal expenseAmount = expense.getAmount();
         BigDecimal budgetAmount = budget.getAmount();

@@ -11,6 +11,7 @@ import com.budgetfriend.repository.IncomeRepository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -100,4 +101,13 @@ public class FinancialService {
     public void updateBudgetAmount(String id,BigDecimal amount){
         budgetRepository.updateAmountById(id,amount);
     }
+    public boolean isExpenseDateWithInRange(Expense expense){
+        LocalDate expenseDate = expense.getExpenseDate();
+        LocalDate today = LocalDate.now();
+        LocalDate firstDayOfMonth = today.withDayOfMonth(1);
+        LocalDate lastDayOfMonth = today.withDayOfMonth(today.lengthOfMonth());
+
+        return !expenseDate.isBefore(firstDayOfMonth) && !expenseDate.isAfter(lastDayOfMonth);
+    }
+
 }
