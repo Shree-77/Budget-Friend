@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:budget_friend/theme/app_theme.dart';
 
 class AiScreen extends StatelessWidget {
   const AiScreen({super.key});
@@ -6,18 +7,14 @@ class AiScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF2F1EE),
+      backgroundColor: AppColors.lightBg,
       body: SafeArea(
         child: Column(
           children: [
-            const SizedBox(height: 20),
-            const Text(
+            SizedBox(height: AppSpacing.xl),
+            Text(
               'AI Screen',
-              style: TextStyle(
-                color: Color(0xFF111817),
-                fontSize: 28,
-                fontWeight: FontWeight.w700,
-              ),
+              style: AppTypography.headingLarge,
             ),
           ],
         ),

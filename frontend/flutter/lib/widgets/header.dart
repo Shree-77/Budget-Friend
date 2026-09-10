@@ -1,6 +1,8 @@
 import 'package:budget_friend/widgets/summary_stats.dart';
 import 'package:flutter/material.dart';
+import '../theme/app_theme.dart';
 import 'package:budget_friend/widgets/safetospend.dart';
+import 'common_widgets.dart';
 
 class Header extends StatelessWidget {
   final bool isCompact;
@@ -12,16 +14,19 @@ class Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final greetingSize = isCompact ? 17.0 : 20.0;
-    final monthSize = isCompact ? 26.0 : 32.0;
-    final badgeSize = isCompact ? 46.0 : 52.0;
-    final iconSize = isCompact ? 24.0 : 28.0;
+    final greetingSize = isCompact ? AppTypography.sizeMedium : AppTypography.sizeLarge;
+    final monthSize = isCompact ? AppTypography.sizeTitleMedium : AppTypography.sizeTitleXLarge;
 
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.fromLTRB(24, 20, 24, isCompact ? 14 : 18),
+      padding: EdgeInsets.fromLTRB(
+        AppSpacing.xxl,
+        AppSpacing.lg,
+        AppSpacing.xxl,
+        isCompact ? AppSpacing.md : AppSpacing.xl,
+      ),
       decoration: const BoxDecoration(
-        color: Color(0xFF071713),
+        color: AppColors.darkBg,
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(48),
           bottomRight: Radius.circular(48),
@@ -36,38 +41,30 @@ class Header extends StatelessWidget {
               Text(
                 'Good morning, Shree',
                 style: TextStyle(
-                  color: Colors.white70,
+                  color: AppColors.textWhiteMuted,
                   fontSize: greetingSize,
-                  fontWeight: FontWeight.w400,
+                  fontWeight: AppTypography.weightLight,
                 ),
               ),
-              Container(
-                width: badgeSize,
-                height: badgeSize,
-                decoration: const BoxDecoration(
-                  color: Color(0xFF26312E),
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(
-                  Icons.notifications_none_rounded,
-                  color: Colors.white,
-                  size: iconSize,
-                ),
+              NotificationBadge(
+                icon: Icons.notifications_none_rounded,
+                size: isCompact ? 46.0 : 52.0,
+                iconSize: isCompact ? 24.0 : 28.0,
               ),
             ],
           ),
-          SizedBox(height: isCompact ? 6 : 8),
+          SizedBox(height: isCompact ? AppSpacing.xs : AppSpacing.sm),
           Text(
             'September 2026',
             style: TextStyle(
-              color: Colors.white,
+              color: AppColors.textWhite,
               fontSize: monthSize,
-              fontWeight: FontWeight.w700,
+              fontWeight: AppTypography.weightBold,
             ),
           ),
-          SizedBox(height: isCompact ? 4 : 6),
+          SizedBox(height: isCompact ? AppSpacing.xs : AppSpacing.sm),
           const Center(child: SafeToSpend()),
-          SizedBox(height: isCompact ? 8 : 12),
+          SizedBox(height: isCompact ? AppSpacing.sm : AppSpacing.lg),
           SummaryStats(isCompact: isCompact),
         ],
       ),

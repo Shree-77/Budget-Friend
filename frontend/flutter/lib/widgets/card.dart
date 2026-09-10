@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../theme/app_theme.dart';
+import 'common_widgets.dart';
 
 class CardWidget extends StatelessWidget {
   final Color iconColor;
@@ -28,25 +30,21 @@ class CardWidget extends StatelessWidget {
     final iconSize = isCompact ? 22.0 : 28.0;
     final titleSize = isCompact ? 18.0 : 20.0;
     final leftSize = isCompact ? 14.0 : 16.0;
+    final spacing = isCompact ? AppSpacing.xs : AppSpacing.sm;
 
-    return Container(
-      padding: EdgeInsets.all(isCompact ? 12 : 14),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(18),
-      ),
+    return AppCard(
+      padding: EdgeInsets.all(isCompact ? AppSpacing.md : AppSpacing.lg),
       child: Row(
         children: [
-          Container(
-            width: iconBoxSize,
-            height: iconBoxSize,
-            decoration: BoxDecoration(
-              color: iconBg,
-              borderRadius: BorderRadius.circular(14),
-            ),
-            child: Icon(icon, color: iconColor, size: iconSize),
+          IconCircleButton(
+            icon: icon,
+            iconColor: iconColor,
+            backgroundColor: iconBg,
+            size: iconBoxSize,
+            iconSize: iconSize,
+            onTap: () {},
           ),
-          SizedBox(width: isCompact ? 10 : 12),
+          SizedBox(width: spacing),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,33 +56,29 @@ class CardWidget extends StatelessWidget {
                         title,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                          color: const Color(0xFF111817),
+                          color: AppColors.textDark,
                           fontSize: titleSize,
-                          fontWeight: FontWeight.w600,
+                          fontWeight: AppTypography.weightSemiBold,
                         ),
                       ),
                     ),
-                    const SizedBox(width: 8),
+                    const SizedBox(width: AppSpacing.sm),
                     Text(
                       left,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                        color: const Color(0xFF111817),
+                        color: AppColors.textDark,
                         fontSize: leftSize,
-                        fontWeight: FontWeight.w600,
+                        fontWeight: AppTypography.weightSemiBold,
                       ),
                     ),
                   ],
                 ),
                 SizedBox(height: isCompact ? 6 : 8),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: LinearProgressIndicator(
-                    value: progress,
-                    minHeight: isCompact ? 8 : 10,
-                    backgroundColor: const Color(0xFFE7E7E7),
-                    valueColor: AlwaysStoppedAnimation<Color>(barColor),
-                  ),
+                ProgressBar(
+                  value: progress,
+                  valueColor: barColor,
+                  minHeight: isCompact ? 8.0 : 10.0,
                 ),
               ],
             ),

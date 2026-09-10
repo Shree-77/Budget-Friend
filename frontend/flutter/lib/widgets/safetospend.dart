@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../theme/app_theme.dart';
 
 class SafeToSpend extends StatelessWidget {
   const SafeToSpend({super.key});
@@ -8,7 +9,7 @@ class SafeToSpend extends StatelessWidget {
     final screenWidth = MediaQuery.sizeOf(context).width;
     final circleSize = (screenWidth * 0.52).clamp(170.0, 240.0);
     final ringSize = circleSize - 20;
-    final labelSize = screenWidth < 360 ? 15.0 : 18.0;
+    final labelSize = screenWidth < 360 ? AppTypography.sizeSmall : AppTypography.sizeLarge;
     final amountSize = screenWidth < 360 ? 30.0 : 38.0;
     final subtitleSize = screenWidth < 360 ? 10.0 : 11.0;
 
@@ -26,9 +27,9 @@ class SafeToSpend extends StatelessWidget {
               child: CircularProgressIndicator(
                 value: 0.72,
                 strokeWidth: screenWidth < 360 ? 15.0 : 20.0,
-                backgroundColor: const Color(0xFFE0E7E4),
+                backgroundColor: AppColors.safeToSpendProgressBg,
                 valueColor: const AlwaysStoppedAnimation<Color>(
-                  Color(0xFF35D89A),
+                  AppColors.safeToSpendProgressValue,
                 ),
               ),
             ),
@@ -38,24 +39,24 @@ class SafeToSpend extends StatelessWidget {
                 Text(
                   'Safe to spend',
                   style: TextStyle(
-                    color: const Color(0xFF8D9995),
+                    color: AppColors.safeToSpendLabelText,
                     fontSize: labelSize,
                   ),
                 ),
-                const SizedBox(height: 6),
+                const SizedBox(height: AppSpacing.xs),
                 Text(
                   '₹18,500',
                   style: TextStyle(
-                    color: const Color(0xFFD9E5E2),
+                    color: AppColors.safeToSpendAmountText,
                     fontSize: amountSize,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: AppTypography.weightBold,
                   ),
                 ),
-                const SizedBox(height: 2),
+                const SizedBox(height: AppSpacing.xs),
                 Text(
                   'for the rest of September',
                   style: TextStyle(
-                    color: const Color(0xFF35B981),
+                    color: AppColors.safeToSpendSubtitleText,
                     fontSize: subtitleSize,
                   ),
                 ),

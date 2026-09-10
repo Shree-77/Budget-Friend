@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import '../theme/app_theme.dart';
 import 'card.dart';
+import 'common_widgets.dart';
 
 class BudgetSection extends StatelessWidget {
   final bool isCompact;
@@ -11,65 +13,69 @@ class BudgetSection extends StatelessWidget {
     this.budgetCount = 5,
   });
 
-  @override
-  Widget build(BuildContext context) {
-    final budgets = [
+  List<Map<String, dynamic>> _getBudgets() {
+    return [
       {
-        'iconColor': const Color(0xFFE7AC32),
-        'iconBg': const Color(0xFFF6E8D2),
+        'iconColor': AppColors.budgetFood,
+        'iconBg': AppColors.budgetFoodBg,
         'icon': Icons.restaurant,
         'title': 'Food',
         'left': '₹1,800 left',
         'progress': 0.7,
-        'barColor': const Color(0xFFE7AC32),
+        'barColor': AppColors.budgetFood,
       },
       {
-        'iconColor': const Color(0xFF48A7F2),
-        'iconBg': const Color(0xFFD9EEFF),
+        'iconColor': AppColors.budgetTravel,
+        'iconBg': AppColors.budgetTravelBg,
         'icon': Icons.flight,
         'title': 'Travel',
         'left': '₹3,200 left',
         'progress': 0.4,
-        'barColor': const Color(0xFF48A7F2),
+        'barColor': AppColors.budgetTravel,
       },
       {
-        'iconColor': const Color(0xFFF17AA8),
-        'iconBg': const Color(0xFFFDE2EC),
+        'iconColor': AppColors.budgetShopping,
+        'iconBg': AppColors.budgetShoppingBg,
         'icon': Icons.shopping_bag_outlined,
         'title': 'Shopping',
         'left': '₹2,500 left',
         'progress': 0.6,
-        'barColor': const Color(0xFFFFB347),
+        'barColor': AppColors.budgetShopping,
       },
       {
-        'iconColor': const Color(0xFFE7AC32),
-        'iconBg': const Color(0xFFF6E8D2),
-        'icon': Icons.restaurant,
-        'title': 'test',
+        'iconColor': AppColors.budgetOther,
+        'iconBg': AppColors.budgetFoodBg,
+        'icon': Icons.category,
+        'title': 'Other',
         'left': '₹1,800 left',
         'progress': 0.7,
-        'barColor': const Color.fromARGB(255, 102, 14, 202),
+        'barColor': AppColors.budgetOther,
       }
-     
     ];
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final budgets = _getBudgets();
+    final titleSize = isCompact ? AppTypography.sizeTitleSmall : AppTypography.sizeTitleLarge;
 
     return Padding(
-      padding: const EdgeInsets.fromLTRB(18, 22, 18, 0),
+      padding: const EdgeInsets.fromLTRB(AppSpacing.xxl, AppSpacing.xxl, AppSpacing.xxl, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             'Your budgets',
             style: TextStyle(
-              color: const Color(0xFF111817),
-              fontSize: isCompact ? 24 : 28,
-              fontWeight: FontWeight.w700,
+              color: AppColors.textDark,
+              fontSize: titleSize,
+              fontWeight: AppTypography.weightBold,
             ),
           ),
-          SizedBox(height: isCompact ? 12 : 18),
+          SizedBox(height: isCompact ? AppSpacing.md : AppSpacing.xxl),
           ListView.separated(
             shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(), 
+            physics: const NeverScrollableScrollPhysics(),
             itemCount: budgets.length < budgetCount ? budgets.length : budgetCount,
             itemBuilder: (context, index) {
               final item = budgets[index];
@@ -84,36 +90,18 @@ class BudgetSection extends StatelessWidget {
                 barColor: item['barColor'] as Color,
               );
             },
-            separatorBuilder: (context, index) => SizedBox(height: isCompact ? 10 : 12),
+            separatorBuilder: (context, index) => SizedBox(height: isCompact ? AppSpacing.sm : AppSpacing.md),
           ),
-          SizedBox(height: isCompact ? 14 : 18),
+          SizedBox(height: isCompact ? AppSpacing.lg : AppSpacing.xxl),
           Align(
             alignment: Alignment.centerRight,
-            child: TextButton(
+            child: AppTextButton(
+              text: 'See all',
               onPressed: () {},
-              style: TextButton.styleFrom(
-                padding: EdgeInsets.zero,
-                minimumSize: Size.zero,
-                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    'See all',
-                    style: TextStyle(
-                      color: const Color(0xFF35B981),
-                      fontSize: isCompact ? 16 : 18,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  const SizedBox(width: 4),
-                  const Icon(
-                    Icons.arrow_forward,
-                    size: 18,
-                    color: Color(0xFF35B981),
-                  ),
-                ],
+              textStyle: TextStyle(
+                color: AppColors.incomeGreen,
+                fontSize: isCompact ? AppTypography.sizeLarge : AppTypography.sizeXLarge,
+                fontWeight: AppTypography.weightSemiBold,
               ),
             ),
           ),

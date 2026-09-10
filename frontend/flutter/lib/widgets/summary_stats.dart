@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../theme/app_theme.dart';
 
 class SummaryStats extends StatelessWidget {
   final bool isCompact;
@@ -10,16 +11,18 @@ class SummaryStats extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final labelSize = isCompact ? 12.0 : 16.0;
-    final amountSize = isCompact ? 16.0 : 20.0;
-    final verticalPadding = isCompact ? 8.0 : 8.0;
+    final labelSize = isCompact ? AppTypography.sizeSmall : AppTypography.sizeLarge;
+    final amountSize = isCompact ? AppTypography.sizeLarge : AppTypography.sizeXXLarge;
 
     return Container(
-      margin: const EdgeInsets.only(top: 8, bottom: 2),
-      padding: EdgeInsets.symmetric(horizontal: isCompact ? 8 : 12, vertical: verticalPadding),
+      margin: const EdgeInsets.only(top: AppSpacing.sm, bottom: AppSpacing.xs),
+      padding: EdgeInsets.symmetric(
+        horizontal: isCompact ? AppSpacing.sm : AppSpacing.md,
+        vertical: AppSpacing.sm,
+      ),
       decoration: BoxDecoration(
         color: const Color(0xFF2D3935),
-        borderRadius: BorderRadius.circular(18),
+        borderRadius: BorderRadius.circular(AppRadius.lg),
       ),
       child: Row(
         children: [
@@ -42,7 +45,7 @@ class SummaryStats extends StatelessWidget {
   ) {
     return Expanded(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8),
+        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
         child: Column(
           children: [
             Text(
@@ -52,13 +55,13 @@ class SummaryStats extends StatelessWidget {
                 fontSize: labelSize,
               ),
             ),
-            const SizedBox(height: 6),
+            const SizedBox(height: AppSpacing.xs),
             Text(
               amount,
               style: TextStyle(
-                color: isSpent ? const Color(0xFFFFAC5C) : Colors.white,
+                color: isSpent ? const Color(0xFFFFAC5C) : AppColors.textWhite,
                 fontSize: amountSize,
-                fontWeight: FontWeight.w700,
+                fontWeight: AppTypography.weightBold,
               ),
             ),
           ],

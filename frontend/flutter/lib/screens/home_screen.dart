@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:budget_friend/theme/app_theme.dart';
 import 'package:budget_friend/widgets/navigation_bar.dart';
 import 'package:budget_friend/widgets/header.dart';
 import 'package:budget_friend/widgets/budget_card.dart';
@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
     ];
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF2F1EE),
+      backgroundColor: AppColors.lightBg,
       extendBody: true,
       body: IndexedStack(
         index: _selectedScreenIndex,

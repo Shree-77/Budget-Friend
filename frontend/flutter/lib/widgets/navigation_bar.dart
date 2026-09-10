@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../theme/app_theme.dart';
+import 'common_widgets.dart';
 
 class CustomNavigationBar extends StatefulWidget {
   final int currentIndex;
@@ -17,10 +19,6 @@ class CustomNavigationBar extends StatefulWidget {
 class _CustomNavigationBarState extends State<CustomNavigationBar> {
   bool _showAddMenu = false;
 
-  static const Color _navBackground = Color(0xFFFCFBFA);
-  static const Color _iconColor = Color(0xFF686A7A);
-  static const Color _selectedColor = Color(0xFF25263A);
-  static const Color _accentColor = Color(0xFF4FC3E8);
 
   void _toggleAddMenu() {
     setState(() {
@@ -90,20 +88,13 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
               child: Container(
                 height: 72,
                 decoration: BoxDecoration(
-                  color: _navBackground,
-                  borderRadius: BorderRadius.circular(38),
+                  color: AppColors.navBackground,
+                  borderRadius: BorderRadius.circular(AppRadius.xxl),
                   border: Border.all(
-                    color: const Color(0xFFE9E7E5),
+                    color: AppColors.navBorder,
                     width: 1,
                   ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.08),
-                      blurRadius: 25,
-                      spreadRadius: 1,
-                      offset: const Offset(0, 8),
-                    ),
-                  ],
+                  boxShadow: AppShadow.light,
                 ),
                 child: Row(
                   children: [
@@ -210,23 +201,24 @@ class _NavigationItem extends StatelessWidget {
             children: [
               Icon(
                 selected ? selectedIcon : icon,
-                size: 25,
+                size: AppIconSize.lg,
                 color: selected
-                    ? const Color(0xFF25263A)
-                    : const Color(0xFF858594),
+                    ? AppColors.navIconActive
+                    : AppColors.navIconInactive,
               ),
 
-              const SizedBox(height: 3),
+              const SizedBox(height: AppSpacing.xs),
 
               Text(
                 label,
                 style: TextStyle(
-                  fontSize: 10,
-                  fontWeight:
-                      selected ? FontWeight.w700 : FontWeight.w500,
+                  fontSize: AppTypography.sizeXSmall,
+                  fontWeight: selected
+                      ? AppTypography.weightBold
+                      : AppTypography.weightMedium,
                   color: selected
-                      ? const Color(0xFF25263A)
-                      : const Color(0xFF858594),
+                      ? AppColors.navIconActive
+                      : AppColors.navIconInactive,
                 ),
               ),
             ],
@@ -268,8 +260,8 @@ class _CenterAddButton extends StatelessWidget {
                   height: 60,
                   decoration: BoxDecoration(
                     color: isOpen
-                        ? const Color(0xFF36B8DF)
-                        : const Color(0xFF4FC3E8),
+                        ? AppColors.accentPrimaryDark
+                        : AppColors.accentPrimary,
                   ),
                 ),
               ),
@@ -280,8 +272,8 @@ class _CenterAddButton extends StatelessWidget {
                 duration: const Duration(milliseconds: 200),
                 child: const Icon(
                   Icons.add,
-                  color: Colors.white,
-                  size: 28,
+                  color: AppColors.white,
+                  size: AppIconSize.lg,
                 ),
               ),
             ],
@@ -343,18 +335,12 @@ class _AddActionsMenu extends StatelessWidget {
             vertical: 12,
           ),
           decoration: BoxDecoration(
-            color: Color(0xFFFCFBFA),
-            borderRadius: BorderRadius.circular(22),
+            color: AppColors.navBackground,
+            borderRadius: BorderRadius.circular(AppRadius.xl),
             border: Border.all(
-              color: const Color(0xFFE9E7E5)
+              color: AppColors.navBorder
             ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.12),
-                blurRadius: 25,
-                offset: const Offset(0, 8),
-              ),
-            ],
+            boxShadow: AppShadow.medium,
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
@@ -362,26 +348,25 @@ class _AddActionsMenu extends StatelessWidget {
               _AddAction(
                 icon: Icons.remove_circle_outline,
                 title: 'Expense',
-                color: const Color(0xFFE86B6B),
+                color: AppColors.expenseRed,
                 onTap: onExpense,
-                
               ),
 
-              const SizedBox(width: 35),
+              const SizedBox(width: AppSpacing.xxxl),
 
               _AddAction(
                 icon: Icons.add_circle_outline,
                 title: 'Income',
-                color: const Color(0xFF4CAF8A),
+                color: AppColors.incomeGreen,
                 onTap: onIncome,
               ),
 
-              const SizedBox(width: 35),
+              const SizedBox(width: AppSpacing.xxxl),
 
               _AddAction(
                 icon: Icons.account_balance_wallet_outlined,
                 title: 'Budget',
-                color: const Color(0xFF4FC3E8),
+                color: AppColors.budgetBlue,
                 onTap: onBudget,
               ),
             ],
@@ -422,18 +407,18 @@ class _AddAction extends StatelessWidget {
             child: Icon(
               icon,
               color: color,
-              size: 24,
+              size: AppIconSize.md,
             ),
           ),
 
-          const SizedBox(height: 5),
+          const SizedBox(height: AppSpacing.xs),
 
           Text(
             title,
             style: const TextStyle(
-              fontSize: 10,
-              fontWeight: FontWeight.w600,
-              color: Color.fromARGB(255, 0, 0, 0),
+              fontSize: AppTypography.sizeXSmall,
+              fontWeight: AppTypography.weightSemiBold,
+              color: AppColors.textDark,
             ),
           ),
         ],
