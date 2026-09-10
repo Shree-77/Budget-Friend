@@ -5,20 +5,27 @@ class SafeToSpend extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.sizeOf(context).width;
+    final circleSize = (screenWidth * 0.52).clamp(170.0, 240.0);
+    final ringSize = circleSize - 20;
+    final labelSize = screenWidth < 360 ? 15.0 : 18.0;
+    final amountSize = screenWidth < 360 ? 30.0 : 38.0;
+    final subtitleSize = screenWidth < 360 ? 10.0 : 11.0;
+
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding: EdgeInsets.symmetric(vertical: screenWidth < 360 ? 6.0 : 10.0),
       child: SizedBox(
-        width: 240,
-        height: 240,
+        width: circleSize,
+        height: circleSize,
         child: Stack(
           alignment: Alignment.center,
           children: [
             SizedBox(
-              width: 220,
-              height: 220,
+              width: ringSize,
+              height: ringSize,
               child: CircularProgressIndicator(
                 value: 0.72,
-                strokeWidth: 20,
+                strokeWidth: screenWidth < 360 ? 15.0 : 20.0,
                 backgroundColor: const Color(0xFFE0E7E4),
                 valueColor: const AlwaysStoppedAnimation<Color>(
                   Color(0xFF35D89A),
@@ -27,29 +34,29 @@ class SafeToSpend extends StatelessWidget {
             ),
             Column(
               mainAxisSize: MainAxisSize.min,
-              children: const [
+              children: [
                 Text(
                   'Safe to spend',
                   style: TextStyle(
-                    color: Color(0xFF8D9995),
-                    fontSize: 18,
+                    color: const Color(0xFF8D9995),
+                    fontSize: labelSize,
                   ),
                 ),
-                SizedBox(height: 6),
+                const SizedBox(height: 6),
                 Text(
                   '₹18,500',
                   style: TextStyle(
-                    color: Color(0xFFD9E5E2),
-                    fontSize: 38,
+                    color: const Color(0xFFD9E5E2),
+                    fontSize: amountSize,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-                SizedBox(height: 2),
+                const SizedBox(height: 2),
                 Text(
                   'for the rest of September',
                   style: TextStyle(
-                    color: Color(0xFF35B981),
-                    fontSize: 12,
+                    color: const Color(0xFF35B981),
+                    fontSize: subtitleSize,
                   ),
                 ),
               ],

@@ -8,6 +8,7 @@ class CardWidget extends StatelessWidget {
   final String left;
   final double progress;
   final Color barColor;
+  final bool isCompact;
 
   const CardWidget({
     super.key,
@@ -18,12 +19,18 @@ class CardWidget extends StatelessWidget {
     required this.left,
     required this.progress,
     required this.barColor,
+    this.isCompact = false,
   });
 
   @override
   Widget build(BuildContext context) {
+    final iconBoxSize = isCompact ? 36.0 : 42.0;
+    final iconSize = isCompact ? 22.0 : 28.0;
+    final titleSize = isCompact ? 18.0 : 20.0;
+    final leftSize = isCompact ? 14.0 : 16.0;
+
     return Container(
-      padding: const EdgeInsets.all(14),
+      padding: EdgeInsets.all(isCompact ? 12 : 14),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(18),
@@ -31,46 +38,50 @@ class CardWidget extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            width: 42,
-            height: 42,
+            width: iconBoxSize,
+            height: iconBoxSize,
             decoration: BoxDecoration(
               color: iconBg,
               borderRadius: BorderRadius.circular(14),
             ),
-            child: Icon(icon, color: iconColor, size: 28),
+            child: Icon(icon, color: iconColor, size: iconSize),
           ),
-          const SizedBox(width: 12),
+          SizedBox(width: isCompact ? 10 : 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      title,
-                      style: const TextStyle(
-                        color: Color(0xFF111817),
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
+                    Expanded(
+                      child: Text(
+                        title,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: const Color(0xFF111817),
+                          fontSize: titleSize,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
+                    const SizedBox(width: 8),
                     Text(
                       left,
-                      style: const TextStyle(
-                        color: Color(0xFF111817),
-                        fontSize: 16,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        color: const Color(0xFF111817),
+                        fontSize: leftSize,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 8),
+                SizedBox(height: isCompact ? 6 : 8),
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: LinearProgressIndicator(
                     value: progress,
-                    minHeight: 10,
+                    minHeight: isCompact ? 8 : 10,
                     backgroundColor: const Color(0xFFE7E7E7),
                     valueColor: AlwaysStoppedAnimation<Color>(barColor),
                   ),
