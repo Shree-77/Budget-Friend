@@ -17,6 +17,13 @@ class AppColors {
   static const Color expenseRed = Color(0xFFE86B6B);
   static const Color incomeGreen = Color(0xFF4CAF8A);
   static const Color budgetBlue = Color(0xFF4FC3E8);
+  static const Color budgetOrange = Color(0xFFFFB347);
+
+  // Action Colors - Light backgrounds
+  static const Color expenseRedLight = Color(0xFFFCEAEA);
+  static const Color incomeGreenLight = Color(0xFFEAF6F1);
+  static const Color budgetBlueLight = Color(0xFFE5F3F9);
+  static const Color budgetOrangeLight = Color(0xFFFFF4E6);
 
   // Background Colors
   static const Color darkBg = Color(0xFF071713);

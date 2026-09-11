@@ -3,6 +3,7 @@ import 'package:budget_friend/theme/app_theme.dart';
 import 'package:budget_friend/widgets/navigation_bar.dart';
 import 'package:budget_friend/widgets/header.dart';
 import 'package:budget_friend/widgets/budget_card.dart';
+import 'package:budget_friend/widgets/common_widgets.dart';
 
 import 'package:budget_friend/screens/budget_screen.dart';
 import 'package:budget_friend/screens/ai_screen.dart';
@@ -60,7 +61,22 @@ class HomeDashboard extends StatelessWidget {
             child: Column(
               children: [
                 Header(isCompact: isCompact),
+                CompactQuickActionsMenu(
+                  onAddExpense: () {
+                    debugPrint('Add Expense tapped');
+                    // TODO: Navigate to Add Expense screen or show bottom sheet
+                  },
+                  onAddIncome: () {
+                    debugPrint('Add Income tapped');
+                    // TODO: Navigate to Add Income screen or show bottom sheet
+                  },
+                  onAddBudget: () {
+                    debugPrint('Add Budget tapped');
+                    // TODO: Navigate to Add Budget screen or show bottom sheet
+                  },
+                ),
                 BudgetSection(isCompact: isCompact),
+                SizedBox(height: AppSpacing.xxl),
               ],
             ),
           );
