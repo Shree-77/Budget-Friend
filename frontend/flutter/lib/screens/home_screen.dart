@@ -5,7 +5,7 @@ import 'package:budget_friend/widgets/header.dart';
 import 'package:budget_friend/widgets/budget_card.dart';
 import 'package:budget_friend/widgets/common_widgets.dart';
 
-import 'package:budget_friend/screens/budget_screen.dart';
+import 'package:budget_friend/screens/money_screen.dart';
 import 'package:budget_friend/screens/ai_screen.dart';
 import 'package:budget_friend/screens/profile_screen.dart';
 
@@ -23,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final screens = [
       const HomeDashboard(),
-      const BudgetScreen(),
+      const MoneyScreen(),
       const AiScreen(),
       const ProfileScreen(),
     ];
